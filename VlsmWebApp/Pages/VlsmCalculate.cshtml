@@ -1,0 +1,129 @@
+@page
+@model VlsmWebApp.Pages.VlsmCalculate
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "VLSM CALCULATOR";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>VLSM CALCULATE</title>
+    <meta name="viewport" content="width=device-width"/>
+    <style>
+        table {
+            background-color: lightblue;
+            border-collapse: collapse;
+            border: 1px solid gray;
+            text-align: center;
+        }
+    
+        th, td {
+            padding: 5px;
+            border: 1px solid gray;
+            text-align: center;
+        }
+    
+        tr:nth-child(even) {
+            background-color: lightcoral;
+            text-align: center;
+        }
+    
+        tr:first-child {
+            background-color: lightgreen;
+            text-align: center;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="js/site.js"></script>
+</head>
+<body>
+<form method="post" id = "myform" onsubmit="return validateForm();" >
+     <label>Enter IP address: </label><input type="number" min="0" max="223" step="1"  id="firstoctet" name="first"/>
+            <input type="number" min="0" max="255" step="1"  id="secondoctet" name="second" required/>
+            <input type="number" min="0" max="255" step="1" id="thirdoctet" name="third" required/>
+            <input type="number" min="0" max="255" step="1" id="fourthoctet" name="fourth" required/><br><br>
+            <label>CIDR:</label><input type="number" min="24" max="31" step="1" id="cidr" name="cid" required/><br><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="inputFormRow" style="width: 35%">
+                        
+                        <div class="input-group mb-3">
+                            <input type="number" name="lan[]" class="form-control m-input" placeholder="Enter number of Hosts" autocomplete="off" required style="width: 30%">
+                            <div class="input-group-append">
+                                <button id="removeRow" type="button" class="btn btn-danger">Remove Network</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="newRow"></div>
+                    <button id="addRow" type="button" class="btn btn-info">Add Network</button>
+                    <button id="senddata" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" onclick="test();">Calculate VLSM</button>
+                    <button type="reset" class="btn btn-info" onclick="reFresh()">New calculation</button>
+                </div>
+            </div>
+            <div> </div>
+</form>
+<br><br><br>
+<div class="container mt-3">
+    
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal" style="text-align: center">
+        <div class="modal-dialog" style="max-width: 100%; width: auto; display: inline-block;">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h4 class="modal-title">Results of VLSM</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="closeModalX">×</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div id="innertable"></div>
+                </div>
+                
+               
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="closeModal">Close</button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>
+<script type="text/javascript">
+
+    $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow" style="width: 35%">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="number" name="lan[]" class="form-control m-input" placeholder="Enter number of Hosts" autocomplete="off" style="width: 30%" required>';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger" style="margin-right: 5px">Remove Network</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newRow').append(html);
+    });
+
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+
+    $("#closeModal").click(function () {
+        $("#myModal").modal('hide');
+    });
+
+    $("#closeModalX").click(function () {
+        $("#myModal").modal('hide');
+    });
+    
+</script>

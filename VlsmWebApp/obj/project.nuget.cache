@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "vbNQRJ+M6g2ShvzLrNhqCe0rTjx/gwFJigsQ5wTpz5zdExFoRC1siZe7LSjfFbFzHZA6wHaVqLLAgoOodZ2oig==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sagit\\RiderProjects\\VlsmWebApp\\VlsmWebApp\\VlsmWebApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sagit\\.nuget\\packages\\bootstrap\\5.1.0\\bootstrap.5.1.0.nupkg.sha512",
+    "C:\\Users\\sagit\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
+    "C:\\Users\\sagit\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512"
+  ],
+  "logs": []
+}
